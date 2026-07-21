@@ -2,6 +2,8 @@ import pandas as pd
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score
+
 
 
 
@@ -83,5 +85,31 @@ model.fit(X_train , y_train)
 print("Model trained Successfully")
 
 
+
+#now do the prdeiction part
+
+y_pred = model.predict(X_test)
+print(y_pred)
+
+
+
+#comparison
+
+comparison = pd.DataFrame({
+    "Actual" : [iris.target_names[i] for i in y_test],
+    "Predicted"  : [iris.target_names[i] for i in y_pred]
+    
+})
+
+print(comparison)
+
+
+#accuracy
+
+accuracy = accuracy_score(y_test , y_pred)
+print("Model Accuracy is :")
+
+
+print(f"Accuracy: {accuracy:.2%}")
 
 

@@ -6,29 +6,27 @@ iris = load_iris()
 
 df = pd.DataFrame(data=iris.data , columns= iris.feature_names)
 
-print("Feature Names \n")
-print(iris.feature_names)
-
-print("Target Names")
-print(iris.target_names)
 
 
-df = pd.DataFrame(
-    data = iris.data,
-    columns = iris.feature_names
-)
 df["species"] = iris.target
+df["target"] = iris.target
 
 
 
 
-df["species"] = df["species"].replace({
+
+df["species"] = df["target"].map({
     0 : "setosa",
     1 : "versicolor",
-    2 : "virgincia"
+    2 : "virginica"
+    
 }
     
 )
+
+
+
+
 
 print(df.head())
 
@@ -38,7 +36,8 @@ print("DF Shape \n")
 print(df.shape)
 
 print("Dataset Information \n")
-print(df.info())
+df.info()
+
 
 print("Statistical Summary \n")
 print(df.describe())
@@ -48,6 +47,16 @@ print(df.isnull().sum())
 
 print("Specie Distribution \n")
 print(df["species"].value_counts())
+
+
+X = df.drop(columns=["target" , "species"])
+y = df["target"]
+
+print("X-Shape")
+print(X.shape)
+
+print("Y-shape")
+print(y.shape)
 
 
 

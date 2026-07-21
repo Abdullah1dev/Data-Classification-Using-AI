@@ -1,6 +1,8 @@
 import pandas as pd
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+
 
 
 iris = load_iris()
@@ -73,3 +75,13 @@ print("Testing Features :", X_test.shape)
 
 print("Training Labels  :", y_train.shape)
 print("Testing Labels   :", y_test.shape)
+
+
+model = KNeighborsClassifier(n_neighbors  = 3)
+
+model.fit(X_train , y_train)
+print("Model trained Successfully")
+
+
+
+

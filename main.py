@@ -4,6 +4,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix
+from sklearn.metrics import classification_report
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
 
 
 
@@ -119,3 +124,37 @@ cm = confusion_matrix(y_test , y_pred)
 print("Confusion Metrix")
 
 print(cm)
+
+
+#classification Report
+
+report = classification_report(
+    y_test,
+    y_pred,
+    target_names = iris.target_names
+
+)
+
+print("Classification Report")
+print(report)
+
+
+#create the heatmap
+
+plt.figure(figsize=(6 , 5))
+
+sns.heatmap(
+    cm,
+    annot = True,
+    cmap = "Blues",
+    xticklabels=iris.target_names,
+    yticklabels=iris.target_names
+    
+)
+
+plt.title("Confusion Metrix")
+plt.xlabel("Predicted Labels")
+plt.ylabel("Acutal Lable")
+
+plt.show()
+

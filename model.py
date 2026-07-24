@@ -2,6 +2,8 @@ import pandas as pd
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from app.py import plot_confusion_matrix
+from app.py import predict_species
 
 # Load the Iris dataset
 iris = load_iris()

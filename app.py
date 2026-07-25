@@ -1,9 +1,9 @@
 import streamlit as st
 from model import predict_species, plot_confusion_matrix
 
-# ===========================
+# ==========================================
 # Page Configuration
-# ===========================
+# ==========================================
 
 st.set_page_config(
     page_title="Iris Flower Classification",
@@ -11,50 +11,51 @@ st.set_page_config(
     layout="centered"
 )
 
-# ===========================
+# ==========================================
 # Sidebar
-# ===========================
+# ==========================================
 
-st.sidebar.title("🌸 Iris Flower Classifier")
+st.sidebar.title("🌸 Iris Flower Classification")
 
 st.sidebar.markdown("""
 ### About
 
-This application predicts the species of an Iris flower using a **K-Nearest Neighbors (KNN)** Machine Learning model.
+This application predicts the species of an Iris flower using the **K-Nearest Neighbors (KNN)** Machine Learning algorithm.
 
-### Model Information
+### Model Details
 
 - Algorithm: KNN
 - Dataset: Iris Dataset
 - Features: 4
 - Classes: 3
 
-### Iris Species
+### Species
 
 - 🌸 Setosa
 - 🌼 Versicolor
 - 🌺 Virginica
 """)
 
-# ===========================
-# Main Title
-# ===========================
+# ==========================================
+# Title
+# ==========================================
 
 st.title("🌸 Iris Flower Classification")
 
 st.write(
-    "Enter the flower measurements below to predict the species of an Iris flower."
+    "Enter the flower measurements below and click **Predict Species**."
 )
 
 st.divider()
 
-# ===========================
-# Input Section
-# ===========================
+# ==========================================
+# Input Fields
+# ==========================================
 
 col1, col2 = st.columns(2)
 
 with col1:
+
     sepal_length = st.number_input(
         "Sepal Length (cm)",
         min_value=0.0,
@@ -70,6 +71,7 @@ with col1:
     )
 
 with col2:
+
     sepal_width = st.number_input(
         "Sepal Width (cm)",
         min_value=0.0,
@@ -86,9 +88,9 @@ with col2:
 
 st.write("")
 
-# ===========================
-# Prediction
-# ===========================
+# ==========================================
+# Prediction Button
+# ==========================================
 
 if st.button("🔍 Predict Species", use_container_width=True):
 
@@ -102,37 +104,38 @@ if st.button("🔍 Predict Species", use_container_width=True):
     st.success(f"### 🌸 Predicted Species: **{prediction.title()}**")
 
     if prediction == "setosa":
+
         st.info("""
 ### 🌸 Setosa
 
 - Small petals
 - Wide sepals
-- Easiest species to classify
-        """)
+- Easily distinguishable from the other species.
+""")
 
     elif prediction == "versicolor":
+
         st.info("""
 ### 🌼 Versicolor
 
 - Medium-sized petals
-- Medium-sized sepals
-- Lies between Setosa and Virginica
-        """)
+- Shares characteristics with Virginica.
+""")
 
     else:
+
         st.info("""
 ### 🌺 Virginica
 
 - Largest petals
-- Larger flower measurements
-- Often confused with Versicolor
-        """)
+- Usually has longer petal measurements.
+""")
 
 st.divider()
 
-# ===========================
+# ==========================================
 # Confusion Matrix
-# ===========================
+# ==========================================
 
 st.subheader("📊 Model Evaluation")
 
@@ -142,25 +145,25 @@ st.pyplot(fig)
 
 st.divider()
 
-# ===========================
+# ==========================================
 # Dataset Information
-# ===========================
+# ==========================================
 
 st.subheader("📁 Dataset Information")
 
 st.markdown("""
-**Dataset:** Iris Dataset
+### Iris Dataset
 
 - Total Samples: **150**
 - Features: **4**
 - Classes: **3**
 
-### Input Features
+### Features
 
-- Sepal Length (cm)
-- Sepal Width (cm)
-- Petal Length (cm)
-- Petal Width (cm)
+- Sepal Length
+- Sepal Width
+- Petal Length
+- Petal Width
 
 ### Target Classes
 
@@ -171,8 +174,4 @@ st.markdown("""
 
 st.divider()
 
-# ===========================
-# Footer
-# ===========================
-
-st.caption("Built with ❤️ using Python, Scikit-learn and Streamlit")
+st.caption("Built using Python • Scikit-learn • Streamlit")

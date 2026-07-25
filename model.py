@@ -1,27 +1,36 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
-from app.py import plot_confusion_matrix
-from app.py import predict_species
+from sklearn.metrics import confusion_matrix
 
-# Load the Iris dataset
+# ==========================
+# Load Dataset
+# ==========================
+
 iris = load_iris()
 
-# Create DataFrame
 df = pd.DataFrame(
-    data=iris.data,
+    iris.data,
     columns=iris.feature_names
 )
 
-# Add target column
 df["target"] = iris.target
 
-# Features and target
+# ==========================
+# Features & Target
+# ==========================
+
 X = df.drop(columns=["target"])
 y = df["target"]
 
-# Split the dataset
+# ==========================
+# Train Test Split
+# ==========================
+
 X_train, X_test, y_train, y_test = train_test_split(
     X,
     y,
@@ -29,23 +38,55 @@ X_train, X_test, y_train, y_test = train_test_split(
     random_state=42
 )
 
-# Train the KNN model
+# ==========================
+# Train Model
+# ==========================
+
 model = KNeighborsClassifier(n_neighbors=3)
+
 model.fit(X_train, y_train)
 
 
-def predict_species(sepal_length, sepal_width, petal_length, petal_width):
-    """
-    Predict the species of an Iris flower based on its measurements.
-    """
+# ==========================
+# Prediction Function
+# ==========================
 
-    prediction = model.predict([
-        [
-            sepal_length,
-            sepal_width,
-            petal_length,
-            petal_width
-        ]
-    ])
+def predict_species(sepal_length, sepal_width, petal_length, petal_width):
+
+    prediction = model.predict([[
+        sepal_length,
+        sepal_width,
+        petal_length,
+        petal_width
+    ]])
 
     return iris.target_names[prediction[0]]
+
+
+# ==========================
+# Confusion Matrix Function
+# ==========================
+
+def plot_confusion_matrix():
+
+    y_pred = model.predict(X_test)
+
+    cm = confusion_matrix(y_test, y_pred)
+
+    fig, ax = plt.subplots(figsize=(6,5))
+
+    sns.heatmap(
+        cm,
+        annot=True,
+        fmt="d",
+        cmap="Blues",
+        xticklabels=iris.target_names,
+        yticklabels=iris.target_names,
+        ax=ax
+    )
+
+    ax.set_title("Confusion Matrix")
+    ax.set_xlabel("Predicted")
+    ax.set_ylabel("Actual")
+
+    return fig
